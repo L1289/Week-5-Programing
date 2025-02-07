@@ -8,7 +8,7 @@ namespace NodeCanvas.Tasks.Actions {
 
 	public class FleeAT : ActionTask {
 
-        public Transform targetTransform;
+        public Transform fleeTargetTransform;
         public BBParameter<Vector3> targetPosition;
         public float fleeDistance; 
 
@@ -29,12 +29,12 @@ namespace NodeCanvas.Tasks.Actions {
 		protected override void OnUpdate() {
 
             //What is the direction thaat we flee from?
-            Vector3 directionToTarget =  agent.transform.position - targetTransform.position;
+            Vector3 directionToTarget =  agent.transform.position - fleeTargetTransform.position;
 
 			//How far along that direction do we want to move?
 			if (directionToTarget.magnitude <= fleeDistance)
 			{
-				Vector3 target = fleeDistance * directionToTarget.normalized;
+				Vector3 target = fleeTargetTransform.position + fleeDistance * directionToTarget.normalized;
 				targetPosition.value = target;
 			}
 
