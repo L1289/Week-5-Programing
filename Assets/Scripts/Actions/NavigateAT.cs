@@ -38,7 +38,7 @@ namespace NodeCanvas.Tasks.Actions {
 			{
 				if(lastDestination != targetPosition.value)
 				{
-					lastDestination = targetPosition.value);
+					lastDestination = targetPosition.value;
 					//Set where the navmeshagent is moving
                     navAgent.SetDestination(targetPosition.value);
                 }
