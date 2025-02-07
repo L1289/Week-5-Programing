@@ -10,6 +10,7 @@ namespace NodeCanvas.Tasks.Actions {
 
 		public BBParameter<Vector3> targetPosition;
 		public float sampleRate;
+		public float sampleDistance;
 
 		private NavMeshAgent navAgent;
 		private float timeSinceLastSample = 0f;
@@ -34,11 +35,21 @@ namespace NodeCanvas.Tasks.Actions {
 
 			timeSinceLastSample += Time.deltaTime;
 
-			if(timeSinceLastSample> sampleRate)
+			if(timeSinceLastSample > sampleRate)
 			{
 				if(lastDestination != targetPosition.value)
 				{
 					lastDestination = targetPosition.value;
+
+					NavMeshHit navMeshHit;
+					bool foundPoint = NavMesh.SamplePosition(targetPosition.value, out navMeshHit, sampleDistance, NavMesh.AllAreas);
+
+					if (foundPoint)
+					{
+                        //Set where the navmeshagent is moving
+                        navAgent.SetDestination(targetPosition.value);
+                    }
+
 					//Set where the navmeshagent is moving
                     navAgent.SetDestination(targetPosition.value);
                 }
